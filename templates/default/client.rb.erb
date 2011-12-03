@@ -1,0 +1,12 @@
+# Configuration File For Chef (chef-client)
+
+node_name          "<%= node.name %>"
+
+log_level          :<%= node[:chef][:client][:log_level].to_s %>
+log_location       "/var/log/chef/client.log"
+
+chef_server_url    "<%= node[:chef][:client][:server_url] %>"
+
+file_cache_path    "/var/lib/chef/cache"
+file_backup_path   "/var/lib/chef/backup"
+pid_file           "/var/run/chef/client.pid"

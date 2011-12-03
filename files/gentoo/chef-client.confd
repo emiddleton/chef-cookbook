@@ -1,0 +1,10 @@
+# /etc/conf.d/chef-client: config file for /etc/init.d/chef-client
+
+# The configuration file to use.
+#CONFIGFILE="/etc/chef/client.rb"
+
+# Path to the chef client binary.
+#CHEF_CLIENT_BINARY="/usr/bin/chef-client"
+
+# PID file location.
+#CHEF_CLIENT_PIDFILE="/var/run/chef/client.pid"

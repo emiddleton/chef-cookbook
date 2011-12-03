@@ -1,0 +1,33 @@
+#!/sbin/runscript
+# Copyright 1999-2009 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+opts="${opts} reload"
+
+depend() {
+	need net
+}
+
+CHEF_CLIENT_BINARY=${CHEF_CLIENT_BINARY:-/usr/bin/chef-client}
+CHEF_CLIENT_PIDFILE=${CHEF_CLIENT_PIDFILE:-/var/run/chef/client.pid}
+CONFIGFILE=${CONFIGFILE:-/etc/chef/client.rb}
+
+start() {
+	ebegin "Starting Chef client"
+	start-stop-daemon --start --quiet --pidfile ${CHEF_CLIENT_PIDFILE} \
+		--exec ${CHEF_CLIENT_BINARY} -- -d -c ${CONFIGFILE}
+	eend $?
+}
+
+stop() {
+	ebegin "Shutting down Chef client"
+	start-stop-daemon --stop --quiet --pidfile ${CHEF_CLIENT_PIDFILE}
+	eend $?
+}
+
+reload() {
+	ebegin "Reloading Chef client"
+	start-stop-daemon --stop --signal HUP --oknodo \
+		--exec ${CHEF_CLIENT_BINARY} --pidfile "${CHEF_CLIENT_PIDFILE}"
+	eend $?
+}
